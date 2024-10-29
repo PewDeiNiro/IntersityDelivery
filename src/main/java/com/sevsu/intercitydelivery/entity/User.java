@@ -28,9 +28,7 @@ public class User {
     @Column(name = "amount")
     private int amount;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
-    private List<Storecart> storecarts;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
     private List<Delivery> deliveries;
+
 }

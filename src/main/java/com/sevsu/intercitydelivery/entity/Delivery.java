@@ -1,6 +1,5 @@
 package com.sevsu.intercitydelivery.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sevsu.intercitydelivery.enums.DeliveryStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,16 +18,26 @@ public class Delivery {
     @Column(name = "id")
     private int id;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "user_id")
-    private User customer;
+    @Column(name = "departure_latitude")
+    private double departureLatitude;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "departure_longitude")
+    private double departureLongitude;
+
+    @Column(name = "destination_latitude")
+    private double destinationLatitude;
+
+    @Column(name = "destination_longitude")
+    private double destinationLongitude;
+
+    @Column(name = "weight")
+    private double weight;
 
     @Column(name = "delivery_status")
-    private DeliveryStatus status;
+    private DeliveryStatus deliveryStatus;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id")
+    private User client;
 
 }
