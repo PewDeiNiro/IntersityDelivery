@@ -1,5 +1,6 @@
 package com.sevsu.intercitydelivery.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,8 +27,9 @@ public class User {
     private String password;
 
     @Column(name = "amount")
-    private int amount;
+    private double amount;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
     private List<Delivery> deliveries;
 

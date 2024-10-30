@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BadRequestException extends HttpException {
+public class UnauthorizedException extends HttpException{
 
-    private int code = HttpStatus.BAD_REQUEST.value();
+    private int code = HttpStatus.UNAUTHORIZED.value();
 
-    private HttpStatus status = HttpStatus.BAD_REQUEST;
+    private HttpStatus status = HttpStatus.UNAUTHORIZED;
 
-    public BadRequestException(String message) {
+    public UnauthorizedException(String message) {
         super(message);
     }
 

@@ -1,6 +1,8 @@
 package com.sevsu.intercitydelivery.controller;
 
 import com.sevsu.intercitydelivery.exception.BadRequestException;
+import com.sevsu.intercitydelivery.exception.HttpException;
+import com.sevsu.intercitydelivery.exception.UnauthorizedException;
 import com.sevsu.intercitydelivery.mapper.ExceptionResponseMapper;
 import com.sevsu.intercitydelivery.response.ExceptionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,9 @@ public class ExceptionController {
     @Autowired
     private ExceptionResponseMapper exceptionResponseMapper;
 
-    @ExceptionHandler({BadRequestException.class})
-    public ResponseEntity<ExceptionResponse> handleBadRequestException(BadRequestException exception){
-        ExceptionResponse exceptionResponse = exceptionResponseMapper.mapBadRequestExceptionToExceptionResponse(exception);
+    @ExceptionHandler({HttpException.class})
+    public ResponseEntity<ExceptionResponse> handleBadRequestException(HttpException exception){
+        ExceptionResponse exceptionResponse = exceptionResponseMapper.mapExceptionToExceptionResponse(exception);
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getHttpStatus());
     }
 

@@ -1,12 +1,17 @@
 package com.sevsu.intercitydelivery.utils;
 
+import com.sevsu.intercitydelivery.model.Coordinate;
+
 import static java.lang.Math.*;
 
 public class DistanceCalculator {
 
     private static final int EARTH_RADIUS = 6372795;
 
-    public static double calculateDistance(double departureLatitude, double departureLongitude, double destinationLatitude, double destinationLongitude) {
+    public static double calculateDistance(Coordinate destination, Coordinate departure) {
+        double departureLatitude = departure.getLatitude(), departureLongitude = departure.getLongitude(),
+                destinationLatitude = destination.getLatitude(), destinationLongitude = destination.getLongitude();
+
         double departureLatitudeRadians = departureLatitude * Math.PI / 180.0,
             departureLongitudeRadians = departureLongitude * Math.PI / 180.0,
             destinationLatitudeRadians = destinationLatitude * Math.PI / 180.0,

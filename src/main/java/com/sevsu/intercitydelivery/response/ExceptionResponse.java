@@ -11,10 +11,10 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public class ExceptionResponse {
 
-    private final int code = HttpStatus.BAD_REQUEST.value();
+    private int code;
 
     @JsonProperty("status")
-    private final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+    private HttpStatus httpStatus;
 
     private String message;
 

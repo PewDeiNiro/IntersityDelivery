@@ -8,13 +8,13 @@ import org.springframework.http.HttpStatus;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BadRequestException extends HttpException {
+public class HttpException extends RuntimeException{
 
-    private int code = HttpStatus.BAD_REQUEST.value();
+    private int code;
 
-    private HttpStatus status = HttpStatus.BAD_REQUEST;
+    private HttpStatus status;
 
-    public BadRequestException(String message) {
+    public HttpException(String message) {
         super(message);
     }
 
