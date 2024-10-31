@@ -1,8 +1,6 @@
 package com.sevsu.intercitydelivery.controller;
 
-import com.sevsu.intercitydelivery.exception.BadRequestException;
 import com.sevsu.intercitydelivery.exception.HttpException;
-import com.sevsu.intercitydelivery.exception.UnauthorizedException;
 import com.sevsu.intercitydelivery.mapper.ExceptionResponseMapper;
 import com.sevsu.intercitydelivery.response.ExceptionResponse;
 import org.springframework.beans.factory.annotation.Autowired;

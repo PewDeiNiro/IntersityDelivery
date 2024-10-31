@@ -1,7 +1,6 @@
 package com.sevsu.intercitydelivery.request;
 
 import com.sevsu.intercitydelivery.model.Coordinate;
-import com.sevsu.intercitydelivery.token.Token;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

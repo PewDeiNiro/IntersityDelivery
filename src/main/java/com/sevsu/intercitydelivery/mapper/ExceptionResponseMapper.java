@@ -1,6 +1,5 @@
 package com.sevsu.intercitydelivery.mapper;
 
-import com.sevsu.intercitydelivery.exception.BadRequestException;
 import com.sevsu.intercitydelivery.exception.HttpException;
 import com.sevsu.intercitydelivery.response.ExceptionResponse;
 import org.mapstruct.Mapper;

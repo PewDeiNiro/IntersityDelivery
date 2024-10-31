@@ -4,7 +4,10 @@ import com.sevsu.intercitydelivery.model.Coordinate;
 import com.sevsu.intercitydelivery.response.DistanceResponse;
 import com.sevsu.intercitydelivery.utils.DistanceCalculator;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "DistanceController", description = "Получение расстояния между двумя географическими координатами")
 @RestController
