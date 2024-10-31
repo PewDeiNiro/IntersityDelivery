@@ -63,7 +63,6 @@ public class DeliveryService {
     }
 
     public Delivery getDeliveryById(int id){
-        System.out.println(id);
         return deliveryRepository.findById(id).orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
     }
 
