@@ -2,6 +2,7 @@ package com.sevsu.intercitydelivery.service;
 
 import com.sevsu.intercitydelivery.entity.Delivery;
 import com.sevsu.intercitydelivery.entity.User;
+import com.sevsu.intercitydelivery.enums.DeliveryStatus;
 import com.sevsu.intercitydelivery.exception.*;
 import com.sevsu.intercitydelivery.mapper.DeliveryMapper;
 import com.sevsu.intercitydelivery.repository.DeliveryRepository;
@@ -49,6 +50,7 @@ public class DeliveryService {
         Delivery delivery = deliveryMapper.mapDeliveryRequestToDeliveryEntity(deliveryRequest);
         client.setAmount(client.getAmount() - cost);
         delivery.setClient(client);
+        delivery.setDeliveryStatus(DeliveryStatus.PENDING);
         userRepository.saveAndFlush(client);
         deliveryRepository.saveAndFlush(delivery);
         DeliveryResponse response = deliveryMapper.mapDeliveryEntityToDeliveryResponse(delivery);
@@ -61,6 +63,7 @@ public class DeliveryService {
     }
 
     public Delivery getDeliveryById(int id){
+        System.out.println(id);
         return deliveryRepository.findById(id).orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
     }
 

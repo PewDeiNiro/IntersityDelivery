@@ -34,6 +34,7 @@ public class Delivery {
     private double weight;
 
     @Column(name = "delivery_status")
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})

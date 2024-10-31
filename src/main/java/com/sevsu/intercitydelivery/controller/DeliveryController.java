@@ -20,7 +20,7 @@ public class DeliveryController {
     private DeliveryService deliveryService;
 
     @PostMapping("/execute")
-    public DeliveryResponse executeDelivery(DeliveryRequest deliveryRequest) {
+    public DeliveryResponse executeDelivery(@RequestBody DeliveryRequest deliveryRequest) {
         return deliveryService.executeDelivery(deliveryRequest);
     }
 

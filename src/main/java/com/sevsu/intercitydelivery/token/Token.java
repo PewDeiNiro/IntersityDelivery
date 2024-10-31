@@ -25,8 +25,8 @@ public class Token {
         return token;
     }
 
-    public static boolean checkAuthentication(int userId, Token token){
-        return tokens.containsKey(userId) && tokens.get(userId).toString().equals(token.getToken());
+    public static boolean checkAuthentication(int userId, String token){
+        return tokens.containsKey(userId) && tokens.get(userId).toString().equals(token);
     }
 
     @Override

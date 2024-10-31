@@ -20,7 +20,7 @@ public class DeliveryRequest {
 
     @NotNull
     @Schema(description = "Токен входа пользователя, получается при регистрации/авторизации")
-    private Token token;
+    private String token;
 
     @NotNull
     @Schema(description = "Географические координаты точки отправления")
