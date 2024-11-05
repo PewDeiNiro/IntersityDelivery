@@ -26,19 +26,19 @@ public class UserService {
 
     public List<Delivery> getAllUserDeliveries(int id){
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с таким уникальным идентификатором не существует"));
+                .orElseThrow(UserDoesNotExistException::new);
         return user.getDeliveries();
     }
 
     public CreatePaymentResponse createUserPayment(CreatePaymentRequest request) {
         if (request.getAmount() <= 0){
-            throw new AmountCanNotBeLessZeroException("Сумма пополнения не может быть меньше 0");
+            throw new AmountCanNotBeLessZeroException();
         }
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с таким уникальным идентификатором не существует"));
+                .orElseThrow(UserDoesNotExistException::new);
         String token = request.getToken();
         if (!Token.checkAuthentication(user.getId(), token)) {
-            throw new InvalidTokenException("Невалидный токен пользователя");
+            throw new InvalidTokenException();
         }
         return paymentClient.createInvoice(request);
     }

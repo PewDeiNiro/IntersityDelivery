@@ -22,9 +22,9 @@ public class PaymentService {
 
     public UpdateBalanceResponse updateBalance(UpdateBalanceRequest request) {
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с таким уникальным идентификатором не существует"));
+                .orElseThrow(UserDoesNotExistException::new);
         if (request.getStatus() != PaymentStatus.SUCCEEDED){
-            throw new PaymentDoesNotSucceededException("Транзакция не была выполнена");
+            throw new PaymentDoesNotSucceededException();
         }
         user.setAmount(user.getAmount() + request.getAmount());
         userRepository.saveAndFlush(user);

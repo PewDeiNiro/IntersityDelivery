@@ -2,8 +2,8 @@ package com.sevsu.intercitydelivery.exception;
 
 public class UserNotFoundException extends BadRequestException {
 
-    public UserNotFoundException(String message) {
-        super(message);
+    public UserNotFoundException() {
+        super("Пользователя с таким уникальным идентификатором не существует");
     }
 
 }

@@ -2,8 +2,8 @@ package com.sevsu.intercitydelivery.exception;
 
 public class UsernameAlreadyTakenException extends BadRequestException {
 
-    public UsernameAlreadyTakenException(String message) {
-        super(message);
+    public UsernameAlreadyTakenException() {
+        super("Пользователь с таким ником уже существует");
     }
 
 }

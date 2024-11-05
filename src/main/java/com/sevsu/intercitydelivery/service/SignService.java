@@ -24,7 +24,7 @@ public class SignService {
 
     public SignResponse signUp(SignRequest signRequest) {
         if (userRepository.existsByUsername(signRequest.getUsername())){
-            throw new UsernameAlreadyTakenException("Пользователь с таким ником уже существует");
+            throw new UsernameAlreadyTakenException();
         }
         User user = signRequestUserMapper.mapSignRequestToUser(signRequest);
         userRepository.saveAndFlush(user);
@@ -33,14 +33,14 @@ public class SignService {
 
     public SignResponse signIn(SignRequest signRequest) {
         if (!userRepository.existsByUsername(signRequest.getUsername())){
-            throw new UserDoesNotExistException("Пользователя с таким ником не существует");
+            throw new UserDoesNotExistException();
         }
         User user = userRepository.findByUsername(signRequest.getUsername()).orElse(null);
         if (user == null){
-            throw new UserNotFoundException("Произошла ошибка при загрузке данных пользователя");
+            throw new UserNotFoundException();
         }
         if (!user.getPassword().equals(signRequest.getPassword())){
-            throw new InvalidPasswordException("Введен неправильный пароль");
+            throw new InvalidPasswordException();
         }
         return new SignResponse(user.getId(), Token.generateToken(user.getId(), user.getPassword()));
     }

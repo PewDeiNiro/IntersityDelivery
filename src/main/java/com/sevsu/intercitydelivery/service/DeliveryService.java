@@ -34,20 +34,20 @@ public class DeliveryService {
 
     public DeliveryResponse executeDelivery(DeliveryRequest deliveryRequest) {
         User client = userRepository.findById(deliveryRequest.getUserId())
-                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с заданным userId не существует"));
+                .orElseThrow(UserDoesNotExistException::new);
         if (!Token.checkAuthentication(deliveryRequest.getUserId(), deliveryRequest.getToken())) {
-            throw new InvalidTokenException("Невалидный токен пользователя");
+            throw new InvalidTokenException();
         }
         if (deliveryRequest.getWeight() > 100){
-            throw new TooMuchWeightException("Слишком большой вес посылки, он не должен превышать 100 кг");
+            throw new TooMuchWeightException();
         }
         double distance = DistanceCalculator.calculateDistance(deliveryRequest.getDeparture(), deliveryRequest.getDestination()),
                 cost = CostCalculator.calculateDeliveryCost(deliveryRequest.getDeparture(), deliveryRequest.getDestination(), deliveryRequest.getWeight());
         if (distance > 100 * 1000){
-            throw new TooFarDistanceException("Слишком большое расстояние перевозки, оно не должно превышать 100 км");
+            throw new TooFarDistanceException();
         }
         if (client.getAmount() < cost){
-            throw new UserDoesNotHaveEnoughMoneyException("У пользователя недостаточно денег, чтобы заказать доставку");
+            throw new UserDoesNotHaveEnoughMoneyException();
         }
         Delivery delivery = deliveryMapper.mapDeliveryRequestToDeliveryEntity(deliveryRequest);
         client.setAmount(client.getAmount() - cost);
@@ -65,12 +65,12 @@ public class DeliveryService {
     }
 
     public Delivery getDeliveryById(int id){
-        return deliveryRepository.findById(id).orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
+        return deliveryRepository.findById(id).orElseThrow(DeliveryDoesNotExistException::new);
     }
 
     public Delivery updateDeliveryStatus(UpdateDeliveryStatusRequest request){
         Delivery delivery = deliveryRepository.findById(request.getId())
-                .orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
+                .orElseThrow(DeliveryDoesNotExistException::new);
         delivery.setDeliveryStatus(request.getStatus());
         deliveryRepository.saveAndFlush(delivery);
         return delivery;
@@ -78,15 +78,15 @@ public class DeliveryService {
 
     public String cancelDelivery(CancelDeliveryRequest request){
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с таким уникальным идентификатором не существует"));
+                .orElseThrow(UserDoesNotExistException::new);
         String token = request.getToken();
         if (!Token.checkAuthentication(user.getId(), token)){
-            throw new InvalidTokenException("Невалидный токен пользователя");
+            throw new InvalidTokenException();
         }
         Delivery delivery = deliveryRepository.findById(request.getDeliveryId())
-                .orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
+                .orElseThrow(DeliveryDoesNotExistException::new);
         if (delivery.getClient().getId() != user.getId()){
-            throw new DeliveryDoesNotBelongException("Доставка не принадлежит данному пользователю");
+            throw new DeliveryDoesNotBelongException();
         }
         double cost = CostCalculator.calculateDeliveryCost(new Coordinate(delivery.getDepartureLatitude(), delivery.getDepartureLongitude()),
                 new Coordinate(delivery.getDestinationLatitude(), delivery.getDestinationLongitude()), delivery.getWeight());
