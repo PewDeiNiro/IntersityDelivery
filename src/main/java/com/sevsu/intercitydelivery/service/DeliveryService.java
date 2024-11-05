@@ -88,6 +88,9 @@ public class DeliveryService {
         if (delivery.getClient().getId() != user.getId()){
             throw new DeliveryDoesNotBelongException();
         }
+        if (delivery.getDeliveryStatus() == DeliveryStatus.CANCELED){
+            throw new AlreadyCancelledDeliveryException();
+        }
         double cost = CostCalculator.calculateDeliveryCost(new Coordinate(delivery.getDepartureLatitude(), delivery.getDepartureLongitude()),
                 new Coordinate(delivery.getDestinationLatitude(), delivery.getDestinationLongitude()), delivery.getWeight());
         user.setAmount(user.getAmount() + cost);
