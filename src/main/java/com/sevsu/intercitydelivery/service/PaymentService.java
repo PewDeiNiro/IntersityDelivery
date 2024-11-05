@@ -23,6 +23,7 @@ public class PaymentService {
     public UpdateBalanceResponse updateBalance(UpdateBalanceRequest request) {
         User user = userRepository.findById(request.getUserId())
                 .orElseThrow(UserDoesNotExistException::new);
+        System.out.println(user.getUsername());
         if (request.getStatus() != PaymentStatus.SUCCEEDED){
             throw new PaymentDoesNotSucceededException();
         }

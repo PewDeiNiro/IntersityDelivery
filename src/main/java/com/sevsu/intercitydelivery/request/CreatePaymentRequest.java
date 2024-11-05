@@ -1,7 +1,7 @@
 package com.sevsu.intercitydelivery.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +18,7 @@ public class CreatePaymentRequest {
     private double amount;
 
     @Schema(description = "Название товара")
-    @NotNull
-    @NotBlank
+    @NotEmpty
     private String title;
 
     @Schema(description = "Уникальный идентификатор пользователя")
@@ -27,8 +26,7 @@ public class CreatePaymentRequest {
     private int userId;
 
     @Schema(description = "Токен пользователя")
-    @NotNull
-    @NotBlank
+    @NotEmpty
     private String token;
 
 }

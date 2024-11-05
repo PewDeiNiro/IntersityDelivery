@@ -1,7 +1,7 @@
 package com.sevsu.intercitydelivery.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +17,7 @@ public class CancelDeliveryRequest {
     @Schema(description = "Уникальный идентификатор пользователя", example = "1")
     private int userId;
 
-    @NotNull
-    @NotBlank
+    @NotEmpty
     @Schema(description = "Токен авторизации пользователя")
     private String token;
 

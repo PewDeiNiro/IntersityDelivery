@@ -6,12 +6,14 @@ import com.sevsu.intercitydelivery.service.SignService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "SignController", description = "Операции регистрации/авторизации пользователя")
+@Validated
 @RestController
 @RequestMapping("/api")
 public class SignController {
@@ -21,13 +23,13 @@ public class SignController {
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/signup")
-    public SignResponse signup(@RequestBody SignRequest signRequest) {
+    public SignResponse signUp(@RequestBody SignRequest signRequest) {
         return signService.signUp(signRequest);
     }
 
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/signin")
-    public SignResponse signin(@RequestBody SignRequest signRequest) {
+    public SignResponse signIn(@RequestBody SignRequest signRequest) {
         return signService.signIn(signRequest);
     }
 

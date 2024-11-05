@@ -1,10 +1,7 @@
 package com.sevsu.intercitydelivery.service;
 
 import com.sevsu.intercitydelivery.entity.User;
-import com.sevsu.intercitydelivery.exception.InvalidPasswordException;
-import com.sevsu.intercitydelivery.exception.UserDoesNotExistException;
-import com.sevsu.intercitydelivery.exception.UserNotFoundException;
-import com.sevsu.intercitydelivery.exception.UsernameAlreadyTakenException;
+import com.sevsu.intercitydelivery.exception.*;
 import com.sevsu.intercitydelivery.mapper.SignRequestUserMapper;
 import com.sevsu.intercitydelivery.repository.UserRepository;
 import com.sevsu.intercitydelivery.request.SignRequest;
@@ -23,6 +20,9 @@ public class SignService {
     private SignRequestUserMapper signRequestUserMapper;
 
     public SignResponse signUp(SignRequest signRequest) {
+        if (signRequest.getUsername().equals("root")){
+            throw new RootUserIsNotAllowed();
+        }
         if (userRepository.existsByUsername(signRequest.getUsername())){
             throw new UsernameAlreadyTakenException();
         }
