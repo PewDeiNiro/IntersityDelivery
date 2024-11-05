@@ -5,8 +5,10 @@ import com.sevsu.intercitydelivery.entity.User;
 import com.sevsu.intercitydelivery.enums.DeliveryStatus;
 import com.sevsu.intercitydelivery.exception.*;
 import com.sevsu.intercitydelivery.mapper.DeliveryMapper;
+import com.sevsu.intercitydelivery.model.Coordinate;
 import com.sevsu.intercitydelivery.repository.DeliveryRepository;
 import com.sevsu.intercitydelivery.repository.UserRepository;
+import com.sevsu.intercitydelivery.request.CancelDeliveryRequest;
 import com.sevsu.intercitydelivery.request.DeliveryRequest;
 import com.sevsu.intercitydelivery.request.UpdateDeliveryStatusRequest;
 import com.sevsu.intercitydelivery.response.DeliveryResponse;
@@ -72,6 +74,27 @@ public class DeliveryService {
         delivery.setDeliveryStatus(request.getStatus());
         deliveryRepository.saveAndFlush(delivery);
         return delivery;
+    }
+
+    public String cancelDelivery(CancelDeliveryRequest request){
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new UserDoesNotExistException("Пользователя с таким уникальным идентификатором не существует"));
+        String token = request.getToken();
+        if (!Token.checkAuthentication(user.getId(), token)){
+            throw new InvalidTokenException("Невалидный токен пользователя");
+        }
+        Delivery delivery = deliveryRepository.findById(request.getDeliveryId())
+                .orElseThrow(() -> new DeliveryDoesNotExistException("Доставки с таким уникальным идентификатором не существует"));
+        if (delivery.getClient().getId() != user.getId()){
+            throw new DeliveryDoesNotBelongException("Доставка не принадлежит данному пользователю");
+        }
+        double cost = CostCalculator.calculateDeliveryCost(new Coordinate(delivery.getDepartureLatitude(), delivery.getDepartureLongitude()),
+                new Coordinate(delivery.getDestinationLatitude(), delivery.getDestinationLongitude()), delivery.getWeight());
+        user.setAmount(user.getAmount() + cost);
+        delivery.setDeliveryStatus(DeliveryStatus.CANCELED);
+        userRepository.saveAndFlush(user);
+        deliveryRepository.saveAndFlush(delivery);
+        return "Доставка успешно отменена пользователем";
     }
 
 }

@@ -3,6 +3,7 @@ package com.sevsu.intercitydelivery.controller;
 import com.sevsu.intercitydelivery.model.Coordinate;
 import com.sevsu.intercitydelivery.response.DistanceResponse;
 import com.sevsu.intercitydelivery.utils.DistanceCalculator;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class DistanceController {
 
+    @Operation(summary = "Определение расстояния между двумя географическими координатами")
     @GetMapping("/distance")
     public DistanceResponse getDistance(@RequestParam double departure_latitude, @RequestParam double departure_longitude,
                                         @RequestParam double destination_latitude, @RequestParam double destination_longitude) {

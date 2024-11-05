@@ -1,0 +1,12 @@
+server:
+  port: ${PORT:8090}
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/interdel
+    username: root
+    password: bestuser
+
+services:
+  payment:
+    url: ${SERVICE_PAYMENT_URL:http://localhost:8091/api/payment}

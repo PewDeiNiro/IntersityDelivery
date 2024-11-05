@@ -14,8 +14,8 @@ public class ExceptionController {
     @Autowired
     private ExceptionResponseMapper exceptionResponseMapper;
 
-    @ExceptionHandler({HttpException.class})
-    public ResponseEntity<ExceptionResponse> handleBadRequestException(HttpException exception){
+    @ExceptionHandler(HttpException.class)
+    public ResponseEntity<ExceptionResponse> handleHttpException(HttpException exception){
         ExceptionResponse exceptionResponse = exceptionResponseMapper.mapExceptionToExceptionResponse(exception);
         return new ResponseEntity<>(exceptionResponse, exceptionResponse.getHttpStatus());
     }
