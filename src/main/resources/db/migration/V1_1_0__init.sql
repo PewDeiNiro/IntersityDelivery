@@ -34,10 +34,10 @@ CREATE TABLE IF NOT EXISTS interdel.invoices
     FOREIGN KEY (user_id) REFERENCES interdel.users (id)
 );
 
-INSERT INTO interdel.users VALUES (1, "admin", "admin", "10000000");
-INSERT INTO interdel.users VALUES (2, "user", "user", "0");
-INSERT INTO interdel.deliveries VALUES (1, 44.5848, 33.4376, 44.5955, 33.4760, 50, "PENDING", 1);
-INSERT INTO interdel.deliveries VALUES (2, 44.5848, 33.4376, 44.5955, 33.4760, 50, "PENDING", 2);
-INSERT INTO interdel.invoices VALUES (1, 1000, "Тестовый платеж", 1, "CANCELLED");
-INSERT INTO interdel.invoices VALUES (2, 1000, "Тестовый платеж", 2, "PENDING");
-INSERT INTO interdel.invoices VALUES (3, 1000, "Тестовый платеж", 2, "SUCCEEDED");
+INSERT IGNORE INTO interdel.users VALUES (1, "admin", "admin", "10000000");
+INSERT IGNORE INTO interdel.users VALUES (2, "user", "user", "0");
+INSERT IGNORE INTO interdel.deliveries VALUES (1, 44.5848, 33.4376, 44.5955, 33.4760, 50, "PENDING", 1);
+INSERT IGNORE INTO interdel.deliveries VALUES (2, 44.5848, 33.4376, 44.5955, 33.4760, 50, "PENDING", 2);
+INSERT IGNORE INTO interdel.invoices VALUES (1, 1000, "Тестовый платеж", 1, "CANCELLED");
+INSERT IGNORE INTO interdel.invoices VALUES (2, 1000, "Тестовый платеж", 2, "PENDING");
+INSERT IGNORE INTO interdel.invoices VALUES (3, 1000, "Тестовый платеж", 2, "SUCCEEDED");
