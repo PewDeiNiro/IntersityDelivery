@@ -112,6 +112,18 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.196</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+            <version>10.20.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -138,6 +150,21 @@
                             <version>0.2.0</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>4.0.3</version>
+                <configuration>
+                    <user>root</user>
+                    <password>admin</password>
+                    <schemas>
+                        <schema>interdel</schema>
+                    </schemas>
+                    <url>jdbc:mysql://localhost:6543</url>
+                    <baselineOnMigrate>true</baselineOnMigrate>
+                    <sqlMigrationPrefix>V</sqlMigrationPrefix>
                 </configuration>
             </plugin>
         </plugins>

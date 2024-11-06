@@ -1,0 +1,13 @@
+services:
+  db:
+    image: 'mysql:8.0'
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: interdel
+      MYSQL_USER: enka
+      MYSQL_PASSWORD: enka
+    ports:
+      - "6543:3306"
+    volumes:
+      - './dbdata:/var/lib/mysql/'
+    restart: always
