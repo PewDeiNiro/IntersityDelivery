@@ -14,11 +14,9 @@ public interface DeliveryMapper {
     @Mapping(target = "departureLongitude", expression = "java(deliveryRequest.getDeparture().getLongitude())")
     @Mapping(target = "destinationLatitude", expression = "java(deliveryRequest.getDestination().getLatitude())")
     @Mapping(target = "destinationLongitude", expression = "java(deliveryRequest.getDestination().getLongitude())")
-    @Mapping(target = "weight", source = "weight")
     Delivery mapDeliveryRequestToDeliveryEntity(DeliveryRequest deliveryRequest);
 
     @Mapping(target = "deliveryId", source = "id")
-    @Mapping(target = "deliveryStatus", source = "deliveryStatus")
     DeliveryResponse mapDeliveryEntityToDeliveryResponse(Delivery delivery);
 
 }
